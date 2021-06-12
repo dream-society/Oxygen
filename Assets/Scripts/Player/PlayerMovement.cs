@@ -6,7 +6,6 @@ public class PlayerMovement : MonoBehaviour
 {
     private Rigidbody2D rb;
     private SpriteRenderer spriteRenderer;
-    private CompanionManager companionManager;
 
     public Vector2 CurrentVelocity { get; private set; }
     public Vector2 MovementInput { get; private set; }
@@ -17,15 +16,16 @@ public class PlayerMovement : MonoBehaviour
 
     [SerializeField][Range(1, 10)]private float speed = 5f;
     [SerializeField][Range(1, 15)]private float jumpForce = 15f;
-    [SerializeField] LayerMask whatIsGround;
+
     public Transform groundCheck;
+    [SerializeField][Range(0.1f, 1f)]private float groundCheckRadius = 0.5f;
+    [SerializeField] LayerMask whatIsGround;
 
     // Start is called before the first frame update
     void Start()
     {
         rb = GetComponent<Rigidbody2D>();
         spriteRenderer = GetComponent<SpriteRenderer>();
-        companionManager = GetComponent<CompanionManager>();
 
         Facing = 1; // Right
     }
@@ -59,7 +59,7 @@ public class PlayerMovement : MonoBehaviour
     {
         var workspace = new Vector2(moveX, CurrentVelocity.y);
         rb.velocity = workspace;
-        CurrentVelocity = workspace;        
+        CurrentVelocity = workspace;
     }
 
     public void MoveY(float moveY)
@@ -78,14 +78,7 @@ public class PlayerMovement : MonoBehaviour
         }
     }
 
-    void OnTriggerEnter2D(Collider2D other)
-    {
-        var companion = other.gameObject;
-        Destroy(other);   
-        companionManager.AddCompanion(companion);
-    }
+    bool CheckIfGrounded() => Physics2D.OverlapCircle(groundCheck.position, groundCheckRadius, whatIsGround);
 
-    bool CheckIfGrounded() => Physics2D.OverlapCircle(groundCheck.position, 0.5f, whatIsGround);
-
-    void OnDrawGizmos() => Gizmos.DrawWireSphere(groundCheck.position, 0.5f);
+    void OnDrawGizmos() => Gizmos.DrawWireSphere(groundCheck.position, groundCheckRadius);
 }
