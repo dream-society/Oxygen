@@ -31,6 +31,7 @@ public class CompanionManager : MonoBehaviour
 
         var companion = collider.gameObject;
         companion.GetComponent<PlayerMovement>().enabled = false;
+        companion.GetComponent<DestroyTimer>().ResetTimer();
 
         var joint = companion.GetComponent<SpringJoint2D>();
         joint.enabled = true;
@@ -44,17 +45,6 @@ public class CompanionManager : MonoBehaviour
     {
         var companion = Companions[Companions.Count-1];
         Companions.RemoveAt(Companions.Count-1);
-
-        // Enable trigger collider
-        StartCoroutine(EnableTriggerCollider(companion));
-
         return companion;
     }
-
-    IEnumerator EnableTriggerCollider(GameObject companion)
-    {
-        yield return new WaitForSeconds(1f);
-        companion.GetComponent<CircleCollider2D>().enabled = true;
-    }
-
 }

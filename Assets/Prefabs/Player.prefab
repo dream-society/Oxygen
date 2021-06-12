@@ -149,10 +149,11 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   speed: 5
   jumpForce: 15
+  groundCheck: {fileID: 4784173695407524413}
+  groundCheckRadius: 0.5
   whatIsGround:
     serializedVersion: 2
     m_Bits: 0
-  groundCheck: {fileID: 4784173695407524413}
 --- !u!114 &5960138595578959669
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -178,7 +179,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: b5d035b369d48e64fae644cd9ce14e78, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  fireForce: 1.5
+  fireForce: 2.5
   firePoint: {fileID: 7549134045972784830}
 --- !u!1 &7655613240434818243
 GameObject:

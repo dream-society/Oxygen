@@ -53,6 +53,7 @@ public class PlayerFireCompanion : MonoBehaviour
 
             companion.GetComponent<SpringJoint2D>().enabled = false;
             companion.GetComponent<Rigidbody2D>().AddForce(movementInput * fireForce, ForceMode2D.Impulse);
+            companion.GetComponent<DestroyTimer>().StartTimer();
 
             // enable player movement
             playerMovement.enabled = true;
@@ -66,6 +67,7 @@ public class PlayerFireCompanion : MonoBehaviour
     IEnumerator EnableCompanionMovement(GameObject companion)
     {
         yield return new WaitForSeconds(2f);
+        companion.GetComponent<CircleCollider2D>().enabled = true;
         companion.GetComponent<PlayerMovement>().enabled = true;
     }
 

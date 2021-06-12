@@ -45,6 +45,7 @@ GameObject:
   - component: {fileID: 8920016712564846166}
   - component: {fileID: 7395090836058964236}
   - component: {fileID: 3481497864259175259}
+  - component: {fileID: 8004198841308533989}
   m_Layer: 10
   m_Name: Companion
   m_TagString: Untagged
@@ -132,7 +133,7 @@ Rigidbody2D:
   m_Mass: 0.1
   m_LinearDrag: 0
   m_AngularDrag: 1
-  m_GravityScale: 1
+  m_GravityScale: 3
   m_Material: {fileID: 0}
   m_Interpolate: 0
   m_SleepingMode: 1
@@ -219,3 +220,15 @@ MonoBehaviour:
   whatIsGround:
     serializedVersion: 2
     m_Bits: 256
+--- !u!114 &8004198841308533989
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 5907704588047845631}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 86398d473bf491340a0166c5d7bad4ff, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
