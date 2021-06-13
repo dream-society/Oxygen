@@ -28,12 +28,12 @@ public class WinCondition : MonoBehaviour
 
     private bool CheckWinCondition()
     {
-        bool win = false;
         foreach (var door in doors)
         {
-            win = door.Active;
+            if (!door.Active)
+                return false;
         }
 
-        return win;
+        return true;
     }
 }
