@@ -11,7 +11,7 @@ public class PlayerMovement : MonoBehaviour
     public Vector2 MovementInput { get; private set; }
     public int NormMovementX { get; private set; }
     public int NormMovementY { get; private set; }
-    public int Facing { get; private set; }
+    public int Facing { get; set; }
     public bool Grounded { get; private set; }
 
     [SerializeField][Range(1, 10)]private float speed = 5f;

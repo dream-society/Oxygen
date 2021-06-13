@@ -35,11 +35,11 @@ public class CompanionManager : MonoBehaviour
             return;
         }
 
-        var companion = collider.gameObject;
-        companion.GetComponent<PlayerMovement>().enabled = false;
-        companion.GetComponent<DestroyTimer>().ResetTimer();
+        var companion = collider.transform.parent.gameObject;
+        companion.GetComponentInParent<PlayerMovement>().enabled = false;
+        companion.GetComponentInParent<DestroyTimer>().ResetTimer();
 
-        var joint = companion.GetComponent<SpringJoint2D>();
+        var joint = companion.GetComponentInParent<SpringJoint2D>();
         joint.enabled = true;
         joint.connectedBody = rb;
         joint.distance = 1 + Companions.Count * 1.5f;

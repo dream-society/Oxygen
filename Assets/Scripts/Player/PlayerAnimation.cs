@@ -1,6 +1,7 @@
 ﻿using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.SceneManagement;
 
 public class PlayerAnimation : MonoBehaviour
 {
@@ -26,5 +27,10 @@ public class PlayerAnimation : MonoBehaviour
         animator.SetBool("inAir", !playerMovement.Grounded);
         animator.SetBool("isShooting", playerFire.IsShooting);
         Debug.Log(playerMovement.CurrentVelocity.y);
+    }
+
+    public void OnDeadAnimationEnd()
+    {
+  	    SceneManager.LoadScene(SceneManager.GetActiveScene().name);
     }
 }

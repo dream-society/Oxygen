@@ -5,43 +5,25 @@ using UnityEngine.SceneManagement;
 
 public class AtomDead : MonoBehaviour
 {
-    private Animator animator;
-    private PlayerMovement playerMovement;
-    private CompanionManager companionManager;
+    void OnTriggerEnter2D(Collider2D other) => KillAtom(other);
 
-    // Start is called before the first frame update
-    void Awake()
+    void KillAtom(Collider2D other)
     {
-        animator = GetComponent<Animator>();
-        playerMovement = GetComponent<PlayerMovement>();
-        companionManager = GetComponent<CompanionManager>();
+        var animator = other.gameObject.GetComponent<Animator>();
+        var playerMovement = other.gameObject.GetComponent<PlayerMovement>();
 
-    }
-
-    // Update is called once per frame
-    void Update()
-    {
-
-    }
-
-    void OnTriggerEnter2D(Collider2D other)
-    {
-        if (!other.CompareTag("Lethal"))
+        if (!(other.CompareTag("Player") || other.CompareTag("Companion")))
         {
             return;
         }
 
-        playerMovement.MoveX(0);
-        playerMovement.MoveY(0);
-        playerMovement.enabled = false;
+        if (playerMovement.enabled)
+        {
+            playerMovement.MoveX(0);
+            playerMovement.MoveY(0);
+            playerMovement.enabled = false;
+        }
 
         animator.SetBool("isDead", true);
-        // partire animazione dead
-        // partire animazione dead companion
-    }
-
-    public void OnDeadAnimationEnd()
-    {
-  	    SceneManager.LoadScene(SceneManager.GetActiveScene().name);
     }
 }

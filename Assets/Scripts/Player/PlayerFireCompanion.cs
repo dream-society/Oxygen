@@ -32,7 +32,7 @@ public class PlayerFireCompanion : MonoBehaviour
 
         movementInput = new Vector2(Input.GetAxis("MouseX"), Input.GetAxis("MouseY"));
 
-        if (Input.GetButtonDown("Fire1"))
+        if (Input.GetButtonDown("Fire1") && playerMovement.Grounded)
         {
             readyToFire = true;
             playerMovement.enabled = false;
@@ -51,12 +51,14 @@ public class PlayerFireCompanion : MonoBehaviour
             var direction = MouseDetermineFireDirection(movementInput);
 
             var companion = companionManager.RemoveLastCompanion();
-            companion.transform.position = firePoint.position;
 
             IsShooting = true;
 
             companion.GetComponent<SpringJoint2D>().enabled = false;
+            companion.transform.position = firePoint.position;
+
             companion.GetComponent<Rigidbody2D>().AddForce(direction * fireForce, ForceMode2D.Impulse);
+
             companion.GetComponent<DestroyTimer>().StartTimer();
 
             // enable player movement
@@ -71,7 +73,7 @@ public class PlayerFireCompanion : MonoBehaviour
     IEnumerator EnableCompanionMovement(GameObject companion)
     {
         yield return new WaitForSeconds(2f);
-        companion.GetComponent<CircleCollider2D>().enabled = true;
+        companion.GetComponentInChildren<CircleCollider2D>().enabled = true;
         companion.GetComponent<PlayerMovement>().enabled = true;
     }
 
