@@ -29,7 +29,7 @@ public class CompanionManager : MonoBehaviour
     {
         collider.enabled = false;
 
-        if (collider.CompareTag("Door"))
+        if (collider.CompareTag("Door") || collider.CompareTag("Lethal"))
         {
             //
             return;
