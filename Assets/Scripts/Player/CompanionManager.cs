@@ -8,19 +8,14 @@ public class CompanionManager : MonoBehaviour
 
     public List<GameObject> Companions = new List<GameObject>();
     private Rigidbody2D rb;
+    private LineRenderer lineRenderer;
+    private LineController lineController;
 
     void Awake()
     {
         rb =  GetComponent<Rigidbody2D>();
-    }
-
-    void Update()
-    {
-
-    }
-
-    void FixedUpdate()
-    {
+        lineRenderer = GetComponentInChildren<LineRenderer>();
+        lineController = GetComponentInChildren<LineController>();
     }
 
     void OnTriggerEnter2D(Collider2D other) => AddCompanion(other);
@@ -45,6 +40,8 @@ public class CompanionManager : MonoBehaviour
         joint.distance = 1 + Companions.Count * 1.5f;
 
         Companions.Add(companion);
+
+        DisableElectricity();
     }
 
     public GameObject RemoveLastCompanion()
@@ -52,5 +49,11 @@ public class CompanionManager : MonoBehaviour
         var companion = Companions[Companions.Count-1];
         Companions.RemoveAt(Companions.Count-1);
         return companion;
+    }
+
+    public void DisableElectricity()
+    {
+        lineRenderer.enabled = false;
+        lineController.enabled = false;
     }
 }

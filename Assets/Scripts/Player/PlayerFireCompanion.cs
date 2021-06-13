@@ -15,11 +15,17 @@ public class PlayerFireCompanion : MonoBehaviour
 
     public bool IsShooting { get; private set; }
 
+    private LineRenderer lineRenderer;
+    private LineController lineController;
+
     // Start is called before the first frame update
     void Awake()
     {
         companionManager = GetComponent<CompanionManager>();
         playerMovement = GetComponent<PlayerMovement>();
+
+        lineRenderer = GetComponentInChildren<LineRenderer>();
+        lineController = GetComponentInChildren<LineController>();
     }
 
     // Update is called once per frame
@@ -75,6 +81,7 @@ public class PlayerFireCompanion : MonoBehaviour
         yield return new WaitForSeconds(2f);
         companion.GetComponentInChildren<CircleCollider2D>().enabled = true;
         companion.GetComponent<PlayerMovement>().enabled = true;
+        EnableElectricity();
     }
 
     public Vector2 DetermineFireDirection(Vector2 input)
@@ -94,4 +101,12 @@ public class PlayerFireCompanion : MonoBehaviour
     }
 
     public void DoneShooting() => IsShooting = false;
+
+    public void EnableElectricity()
+    {
+        lineRenderer.enabled = true;
+        lineController.enabled = true;
+    }
+
+
 }
