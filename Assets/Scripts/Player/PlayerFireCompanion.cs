@@ -30,7 +30,7 @@ public class PlayerFireCompanion : MonoBehaviour
             return;
         }
 
-        movementInput = new Vector2(Input.GetAxis("Horizontal"), Input.GetAxis("Vertical"));
+        movementInput = new Vector2(Input.GetAxis("MouseX"), Input.GetAxis("MouseY"));
 
         if (Input.GetButtonDown("Fire1"))
         {
@@ -40,7 +40,7 @@ public class PlayerFireCompanion : MonoBehaviour
 
         if (readyToFire)
         {
-            var direction = DetermineFireDirection(movementInput);
+            var direction = MouseDetermineFireDirection(movementInput);
             Debug.DrawLine(transform.position, transform.position + (Vector3)direction);
             playerMovement.MoveX(0);
             playerMovement.MoveY(0);
@@ -48,7 +48,7 @@ public class PlayerFireCompanion : MonoBehaviour
 
         if (Input.GetButtonUp("Fire1") && readyToFire)
         {
-            var direction = DetermineFireDirection(movementInput);
+            var direction = MouseDetermineFireDirection(movementInput);
 
             var companion = companionManager.RemoveLastCompanion();
             companion.transform.position = firePoint.position;
@@ -56,7 +56,7 @@ public class PlayerFireCompanion : MonoBehaviour
             IsShooting = true;
 
             companion.GetComponent<SpringJoint2D>().enabled = false;
-            companion.GetComponent<Rigidbody2D>().AddForce(movementInput * fireForce, ForceMode2D.Impulse);
+            companion.GetComponent<Rigidbody2D>().AddForce(direction * fireForce, ForceMode2D.Impulse);
             companion.GetComponent<DestroyTimer>().StartTimer();
 
             // enable player movement
@@ -79,6 +79,15 @@ public class PlayerFireCompanion : MonoBehaviour
     {
         input = input == Vector2.zero ? Vector2.right : input;
         float angle = Vector2.SignedAngle(Vector2.right, input) * Mathf.Deg2Rad;
+        return new Vector2(Mathf.Cos(angle), Mathf.Sin(angle));
+    }
+
+    public Vector2 MouseDetermineFireDirection(Vector2 stub)
+    {
+        Vector3 mousePos = Input.mousePosition;
+        Vector3 objPos = Camera.main.WorldToScreenPoint(transform.position);
+        mousePos -= objPos;
+        float angle = Mathf.Atan2(mousePos.y, mousePos.x);
         return new Vector2(Mathf.Cos(angle), Mathf.Sin(angle));
     }
 
