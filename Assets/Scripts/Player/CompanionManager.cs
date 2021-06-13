@@ -29,6 +29,12 @@ public class CompanionManager : MonoBehaviour
     {
         collider.enabled = false;
 
+        if (collider.CompareTag("Door"))
+        {
+            //
+            return;
+        }
+
         var companion = collider.gameObject;
         companion.GetComponent<PlayerMovement>().enabled = false;
         companion.GetComponent<DestroyTimer>().ResetTimer();
