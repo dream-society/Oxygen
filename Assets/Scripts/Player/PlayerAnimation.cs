@@ -26,7 +26,6 @@ public class PlayerAnimation : MonoBehaviour
         animator.SetFloat("yVelocity", playerMovement.CurrentVelocity.y);
         animator.SetBool("inAir", !playerMovement.Grounded);
         animator.SetBool("isShooting", playerFire.IsShooting);
-        Debug.Log(playerMovement.CurrentVelocity.y);
     }
 
     public void OnDeadAnimationEnd()
