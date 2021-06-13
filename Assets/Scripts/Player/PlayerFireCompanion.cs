@@ -13,6 +13,8 @@ public class PlayerFireCompanion : MonoBehaviour
 
     public Transform firePoint;
 
+    public bool IsShooting { get; private set; }
+
     // Start is called before the first frame update
     void Awake()
     {
@@ -51,6 +53,8 @@ public class PlayerFireCompanion : MonoBehaviour
             var companion = companionManager.RemoveLastCompanion();
             companion.transform.position = firePoint.position;
 
+            IsShooting = true;
+
             companion.GetComponent<SpringJoint2D>().enabled = false;
             companion.GetComponent<Rigidbody2D>().AddForce(movementInput * fireForce, ForceMode2D.Impulse);
             companion.GetComponent<DestroyTimer>().StartTimer();
@@ -77,4 +81,6 @@ public class PlayerFireCompanion : MonoBehaviour
         float angle = Vector2.SignedAngle(Vector2.right, input) * Mathf.Deg2Rad;
         return new Vector2(Mathf.Cos(angle), Mathf.Sin(angle));
     }
+
+    public void DoneShooting() => IsShooting = false;
 }
