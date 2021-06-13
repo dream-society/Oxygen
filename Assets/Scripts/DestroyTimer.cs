@@ -4,7 +4,7 @@ using UnityEngine;
 
 public class DestroyTimer : MonoBehaviour
 {
-    [SerializeField][Range(1,15)] float maxTime = 10;
+    [SerializeField][Range(1,15)] float maxTime = 12;
     float timeRemaining;
     bool timerIsRunning;
     private Animator animator;

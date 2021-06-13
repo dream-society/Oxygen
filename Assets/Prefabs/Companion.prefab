@@ -273,6 +273,7 @@ MonoBehaviour:
   whatIsGround:
     serializedVersion: 2
     m_Bits: 256
+  clips: []
 --- !u!114 &8004198841308533989
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -285,7 +286,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 86398d473bf491340a0166c5d7bad4ff, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  maxTime: 10
+  maxTime: 12
 --- !u!114 &7882418539211156177
 MonoBehaviour:
   m_ObjectHideFlags: 0
