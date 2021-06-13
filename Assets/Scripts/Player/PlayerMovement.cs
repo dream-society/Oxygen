@@ -6,6 +6,7 @@ public class PlayerMovement : MonoBehaviour
 {
     private Rigidbody2D rb;
     private SpriteRenderer spriteRenderer;
+    private AudioSource audioSource;
 
     public Vector2 CurrentVelocity { get; private set; }
     public Vector2 MovementInput { get; private set; }
@@ -21,11 +22,15 @@ public class PlayerMovement : MonoBehaviour
     [SerializeField][Range(0.1f, 1f)]private float groundCheckRadius = 0.5f;
     [SerializeField] LayerMask whatIsGround;
 
+    [SerializeField] public AudioClip[] clips;
+
+
     // Start is called before the first frame update
     void Start()
     {
         rb = GetComponent<Rigidbody2D>();
         spriteRenderer = GetComponent<SpriteRenderer>();
+        audioSource = GetComponent<AudioSource>();
 
         Facing = 1; // Right
     }
@@ -47,6 +52,10 @@ public class PlayerMovement : MonoBehaviour
             rb.velocity = new Vector2(rb.velocity.x, -jumpForce);
 
             MoveY(jumpForce);
+
+            // audioSource.clip = clips[2];
+            if (CompareTag("Player"))
+                audioSource.PlayOneShot(clips[2]);
         }
     }
 

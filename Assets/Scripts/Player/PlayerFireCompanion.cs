@@ -17,6 +17,7 @@ public class PlayerFireCompanion : MonoBehaviour
 
     private LineRenderer lineRenderer;
     private LineController lineController;
+    private AudioSource audioSource;
 
     // Start is called before the first frame update
     void Awake()
@@ -26,6 +27,8 @@ public class PlayerFireCompanion : MonoBehaviour
 
         lineRenderer = GetComponentInChildren<LineRenderer>();
         lineController = GetComponentInChildren<LineController>();
+
+        audioSource = GetComponent<AudioSource>();
     }
 
     // Update is called once per frame
@@ -71,6 +74,9 @@ public class PlayerFireCompanion : MonoBehaviour
             playerMovement.enabled = true;
             readyToFire = false;
 
+            if (CompareTag("Player"))
+                audioSource.PlayOneShot(playerMovement.clips[3]);
+
             // enable companion movement
             StartCoroutine(EnableCompanionMovement(companion));
         }
@@ -106,7 +112,12 @@ public class PlayerFireCompanion : MonoBehaviour
     {
         lineRenderer.enabled = true;
         lineController.enabled = true;
+
+        if (CompareTag("Player"))
+        {
+            audioSource.clip = playerMovement.clips[0];
+            audioSource.loop = true;
+            audioSource.Play();
+        }
     }
-
-
 }

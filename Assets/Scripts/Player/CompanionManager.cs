@@ -10,12 +10,17 @@ public class CompanionManager : MonoBehaviour
     private Rigidbody2D rb;
     private LineRenderer lineRenderer;
     private LineController lineController;
+    private PlayerMovement playerMovement;
+    private AudioSource audioSource;
 
     void Awake()
     {
         rb =  GetComponent<Rigidbody2D>();
         lineRenderer = GetComponentInChildren<LineRenderer>();
         lineController = GetComponentInChildren<LineController>();
+
+        playerMovement = GetComponent<PlayerMovement>();
+        audioSource = GetComponent<AudioSource>();
     }
 
     void OnTriggerEnter2D(Collider2D other) => AddCompanion(other);
@@ -55,5 +60,11 @@ public class CompanionManager : MonoBehaviour
     {
         lineRenderer.enabled = false;
         lineController.enabled = false;
+
+        if (CompareTag("Player"))
+        {
+            audioSource.loop = false;
+            audioSource.PlayOneShot(playerMovement.clips[1]);
+        }
     }
 }
