@@ -7,13 +7,18 @@ public class DestroyTimer : MonoBehaviour
     [SerializeField][Range(1,15)] float maxTime = 10;
     float timeRemaining;
     bool timerIsRunning;
-    // Start is called before the first frame update
+    private Animator animator;
+
+    void Awake()
+    {
+        animator = GetComponent<Animator>();
+    }
+
     void Start()
     {
         ResetTimer();
     }
 
-    // Update is called once per frame
     void Update()
     {
         if (!timerIsRunning)
@@ -27,10 +32,8 @@ public class DestroyTimer : MonoBehaviour
         }
         else
         {
-            // Destroy companion
-            // Restart game
             ResetTimer();
-            Debug.Log("Companion dead!");
+            animator.SetBool("isDead", true);
         }
     }
 
